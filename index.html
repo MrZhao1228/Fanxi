@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>凡曦科技 | 数字解决方案专家</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', 'PingFang SC', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* 导航栏 */
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .mobile-menu {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+        /* 首页 */
+        .hero {
+            padding: 140px 0 60px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(255, 255, 255, 1) 100%);
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #64748b;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        /* 核心业务 */
+        .services {
+            padding: 6rem 1rem;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            font-size: 2.5rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            padding: 2rem;
+            border-radius: 12px;
+            background: var(--light);
+            transition: transform 0.3s;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* 企业优势 */
+        .advantages {
+            padding: 6rem 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
+            color: white;
+        }
+
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .advantage-card {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+        }
+
+        /* 成功案例 */
+        .cases {
+            padding: 6rem 1rem;
+            background: #f8fafc;
+        }
+
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .case-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .case-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .case-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .case-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .case-card:hover .case-image img {
+            transform: scale(1.05);
+        }
+
+        .case-content {
+            padding: 1.5rem;
+        }
+
+        /* 模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            padding: 2rem;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* 联系我们 */
+        .contact {
+            padding: 6rem 1rem;
+            background: white;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .mobile-menu {
+                display: block;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <nav class="nav-container">
+            <div class="logo">凡曦科技</div>
+            <ul class="nav-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#services">核心业务</a></li>
+                <li><a href="#advantages">企业优势</a></li>
+                <li><a href="#cases">成功案例</a></li>
+                <li><a href="#contact">联系我们</a></li>
+            </ul>
+            <button class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- 首页 -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>引领数字未来 创造无限可能</h1>
+            <p>专注游戏运营、精准广告与互联网服务，助力企业实现数字化转型</p>
+        </div>
+    </section>
+
+    <!-- 核心业务 -->
+    <section class="services" id="services">
+        <h2 class="section-title">核心业务</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-globe service-icon"></i>
+                <h3>游戏全球发行</h3>
+                <p>多语言本地化运营与精准区域推广</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-bullseye service-icon"></i>
+                <h3>精准广告投放</h3>
+                <p>基于AI算法的智能投放系统</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-cloud service-icon"></i>
+                <h3>云信息服务</h3>
+                <p>企业级云计算解决方案</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-chart-line service-icon"></i>
+                <h3>数据分析</h3>
+                <p>深度用户行为分析与预测</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-shield-alt service-icon"></i>
+                <h3>网络安全</h3>
+                <p>全方位数字资产保护方案</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-mobile-alt service-icon"></i>
+                <h3>移动端优化</h3>
+                <p>跨平台用户体验优化服务</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 企业优势 -->
+    <section class="advantages" id="advantages">
+        <h2 class="section-title">我们的优势</h2>
+        <div class="advantages-grid">
+            <div class="advantage-card">
+                <div class="advantage-number">10年+</div>
+                <h4>行业经验</h4>
+                <p>深耕数字领域</p>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-number">200+</div>
+                <h4>专业团队</h4>
+                <p>技术专家与运营人才</p>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-number">98.7%</div>
+                <h4>客户满意度</h4>
+                <p>持续优质服务</p>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-number">50+</div>
+                <h4>合作伙伴</h4>
+                <p>全球知名企业</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 成功案例 -->
+    <section class="cases" id="cases">
+        <h2 class="section-title">成功案例</h2>
+        <div class="case-grid">
+            <div class="case-card" onclick="showModal('case1')">
+                <div class="case-image">
+                    <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="游戏案例">
+                </div>
+                <div class="case-content">
+                    <h3>手游全球发行</h3>
+                    <p>月活跃用户突破500万</p>
+                </div>
+            </div>
+            <!-- 其他案例结构类似... -->
+        </div>
+    </section>
+
+    <!-- 案例详情模态框 -->
+    <div id="case1" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2>《幻境传说》全球发行案例</h2>
+            <div class="modal-body">
+                <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+                     alt="详细案例" style="width:100%;border-radius:8px;margin:1rem 0;">
+                <h3>项目成果</h3>
+                <ul>
+                    <li>覆盖全球15个主要市场</li>
+                    <li>首月下载量300万次</li>
+                    <li>用户留存率40%</li>
+                    <li>日均流水$50万</li>
+                </ul>
+                <h3>关键技术</h3>
+                <p>AI用户画像分析 + 动态广告投放 + 本地化运营策略</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 联系我们 -->
+    <section class="contact" id="contact">
+        <h2 class="section-title">联系我们</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>开启合作</h3>
+                <p>香港总部：九龙尖沙咀科学馆道14号</p>
+                <p>电话：+852 1234 5678</p>
+                <p>邮箱：contact@fancytech.hk</p>
+                <div class="social-links" style="margin-top: 2rem;">
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+            <form class="contact-form">
+                <input type="text" placeholder="姓名" required>
+                <input type="email" placeholder="邮箱" required>
+                <input type="tel" placeholder="电话">
+                <textarea rows="5" placeholder="合作需求"></textarea>
+                <button class="btn btn-primary" type="submit">提交咨询</button>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        // 移动端菜单切换
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // 模态框控制
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.style.display = 'none';
+            });
+            document.body.style.overflow = 'auto';
+        }
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
